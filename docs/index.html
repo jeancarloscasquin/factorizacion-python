@@ -2,40 +2,104 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Factorización en Python</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Factorización de Enteros</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <div class="container">
-    <header class="hero">
-      <h1>Factorización en Python</h1>
-      <p>
-        Implementación del algoritmo de Fermat y de la factorización por
-        reducción de raíz cuadrada, con experimentos comparativos.
-      </p>
-    </header>
 
-    <section class="card">
-      <h2>Descripción</h2>
-      <p>
-        Este proyecto compara dos métodos de factorización de enteros:
-        el algoritmo de Fermat, eficiente cuando los factores son cercanos,
-        y la reducción por raíz cuadrada, útil cuando los factores están más separados.
-      </p>
-    </section>
+<div class="container">
 
-    <section class="card">
-      <h2>Algoritmos implementados</h2>
-      <ul>
-        <li><strong>Fermat:</strong> representa n como diferencia de cuadrados.</li>
-        <li><strong>Reducción por raíz cuadrada:</strong> busca divisores hasta √n.</li>
-      </ul>
-    </section>
+  <header class="hero">
+    <h1>Factorización de Enteros</h1>
+    <p>
+      Comparación entre el algoritmo de Fermat y la factorización por reducción de raíz cuadrada.
+    </p>
+  </header>
 
-    <section class="card">
-      <h2>Estructura del proyecto</h2>
-      <pre><code>factorizacion-python/
+  <section class="card">
+    <h2>📌 Introducción</h2>
+    <p>
+      La factorización de números enteros es un problema fundamental en matemáticas y criptografía.
+      En este proyecto se implementan y comparan dos métodos clásicos:
+      el algoritmo de Fermat y la factorización por reducción de raíz cuadrada.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>📐 Fundamento Teórico</h2>
+    <p>
+      El algoritmo de Fermat se basa en la identidad:
+    </p>
+    <pre><code>n = a² - b² = (a - b)(a + b)</code></pre>
+
+    <p>
+      Por otro lado, el método de reducción por raíz cuadrada busca divisores
+      desde 2 hasta √n.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>⚙️ Algoritmos</h2>
+    <ul>
+      <li><strong>Fermat:</strong> eficiente cuando los factores son cercanos.</li>
+      <li><strong>Raíz cuadrada:</strong> eficiente cuando los factores están separados.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🧪 Experimentos</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Fermat (iteraciones)</th>
+          <th>Raíz cuadrada (iteraciones)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5959</td>
+          <td>Cercanos</td>
+          <td>3</td>
+          <td>29</td>
+        </tr>
+        <tr>
+          <td>9973 × 10007</td>
+          <td>Muy cercanos</td>
+          <td>1</td>
+          <td>4986</td>
+        </tr>
+        <tr>
+          <td>101 × 10007</td>
+          <td>Lejanos</td>
+          <td>4049</td>
+          <td>50</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <section class="card">
+    <h2>📊 Resultados</h2>
+    <p>
+      Los resultados demuestran que el algoritmo de Fermat es altamente eficiente
+      cuando los factores son cercanos, mientras que la reducción por raíz cuadrada
+      es más adecuada cuando los factores están alejados.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>💻 Código de ejemplo</h2>
+    <pre><code>python experimentos.py</code></pre>
+  </section>
+
+  <section class="card">
+    <h2>📁 Estructura del proyecto</h2>
+    <pre><code>factorizacion-python/
 ├── fermat.py
 ├── sqrt_reduction.py
 ├── experimentos.py
@@ -43,30 +107,14 @@
 └── docs/
     ├── index.html
     └── styles.css</code></pre>
-    </section>
+  </section>
 
-    <section class="card">
-      <h2>Ejemplo de ejecución</h2>
-      <pre><code>python experimentos.py</code></pre>
-    </section>
+  <section class="card">
+    <h2>👤 Autor</h2>
+    <p>Jeancarlos Casquín</p>
+  </section>
 
-    <section class="card">
-      <h2>Ejemplo de salida</h2>
-      <pre><code>Número n = 5959
+</div>
 
-Fermat:
-  factores    = (59, 101)
-  iteraciones = 3
-
-Reducción sqrt:
-  factores    = (59, 101)
-  iteraciones = 29</code></pre>
-    </section>
-
-    <section class="card">
-      <h2>Autor</h2>
-      <p>Jeancarlos Casquín</p>
-    </section>
-  </div>
 </body>
 </html>
