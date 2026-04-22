@@ -114,7 +114,6 @@ def generar_html(resultados):
 
     html = f"""
 <section class="card">
-    <h2>🧪 Resultados Automáticos</h2>
     <table>
         <thead>
             <tr>
