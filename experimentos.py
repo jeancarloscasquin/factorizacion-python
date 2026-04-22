@@ -1,33 +1,45 @@
+import math
 import time
-from fermat import fermat_factor
-from sqrt_reduction import sqrt_reduction_factor
+import os
 
 
-def experimentar(n):
-    print(f"\nNúmero n = {n}")
+def fermat_factor(n):
+    if n % 2 == 0:
+        return 2, n // 2, 1
 
-    # Fermat
-    inicio = time.perf_counter()
-    p1, q1, it1 = fermat_factor(n)
-    tiempo1 = time.perf_counter() - inicio
+    a = math.isqrt(n)
+    if a * a < n:
+        a += 1
 
-    # Raíz cuadrada
-    inicio = time.perf_counter()
-    p2, q2, it2 = sqrt_reduction_factor(n)
-    tiempo2 = time.perf_counter() - inicio
+    iteraciones = 0
 
-    print("Fermat:")
-    print(f"  factores    = ({p1}, {q1})")
-    print(f"  iteraciones = {it1}")
-    print(f"  tiempo      = {tiempo1:.8f} s")
+    while True:
+        b2 = a * a - n
+        b = math.isqrt(b2)
+        iteraciones += 1
 
-    print("Reducción sqrt:")
-    print(f"  factores    = ({p2}, {q2})")
-    print(f"  iteraciones = {it2}")
-    print(f"  tiempo      = {tiempo2:.8f} s")
+        if b * b == b2:
+            return a - b, a + b, iteraciones
+
+        a += 1
 
 
-if __name__ == "__main__":
+def sqrt_reduction_factor(n):
+    if n % 2 == 0:
+        return 2, n // 2, 1
+
+    limite = math.isqrt(n)
+    iteraciones = 0
+
+    for d in range(3, limite + 1, 2):
+        iteraciones += 1
+        if n % d == 0:
+            return d, n // d, iteraciones
+
+    return 1, n, iteraciones
+
+
+def ejecutar_experimentos():
     casos = [
         5959,
         9973 * 10007,
@@ -36,5 +48,65 @@ if __name__ == "__main__":
         5003 * 90001
     ]
 
+    resultados = []
+
     for n in casos:
-        experimentar(n)
+        # Fermat
+        inicio = time.perf_counter()
+        p1, q1, it1 = fermat_factor(n)
+        t1 = time.perf_counter() - inicio
+
+        # sqrt
+        inicio = time.perf_counter()
+        p2, q2, it2 = sqrt_reduction_factor(n)
+        t2 = time.perf_counter() - inicio
+
+        resultados.append({
+            "n": n,
+            "fermat": f"({p1},{q1}) - it:{it1} - t:{t1:.6f}",
+            "sqrt": f"({p2},{q2}) - it:{it2} - t:{t2:.6f}"
+        })
+
+    return resultados
+
+
+def generar_html(resultados):
+    filas = ""
+
+    for r in resultados:
+        filas += f"""
+        <tr>
+            <td>{r['n']}</td>
+            <td>{r['fermat']}</td>
+            <td>{r['sqrt']}</td>
+        </tr>
+        """
+
+    html = f"""
+    <section class="card">
+        <h2>🧪 Resultados Automáticos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Fermat</th>
+                    <th>Raíz cuadrada</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filas}
+            </tbody>
+        </table>
+    </section>
+    """
+
+    # Guardar en docs
+    os.makedirs("docs", exist_ok=True)
+
+    with open("docs/resultados.html", "w", encoding="utf-8") as f:
+        f.write(html)
+
+
+if __name__ == "__main__":
+    resultados = ejecutar_experimentos()
+    generar_html(resultados)

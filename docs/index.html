@@ -113,8 +113,18 @@
     <h2>👤 Autor</h2>
     <p>Jeancarlos Casquín</p>
   </section>
-
+  <section class="card">
+    <h2>👤 Experimentos</h2>
+    <div id="resultados"></div>
+  </section>
 </div>
 
 </body>
+<script>
+fetch("resultados.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("resultados").innerHTML = data;
+  });
+</script>
 </html>

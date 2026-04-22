@@ -1,0 +1,29 @@
+name: Generar Resultados
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repo
+      uses: actions/checkout@v3
+
+    - name: Instalar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Ejecutar script
+      run: python experimentos.py
+
+    - name: Commit resultados
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add docs/resultados.html
+        git commit -m "Actualizar resultados automáticamente" || echo "Sin cambios"
+        git push
