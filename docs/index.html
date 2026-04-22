@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Factorización en Python</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1>Factorización en Python</h1>
+      <p>
+        Implementación del algoritmo de Fermat y de la factorización por
+        reducción de raíz cuadrada, con experimentos comparativos.
+      </p>
+    </header>
+
+    <section class="card">
+      <h2>Descripción</h2>
+      <p>
+        Este proyecto compara dos métodos de factorización de enteros:
+        el algoritmo de Fermat, eficiente cuando los factores son cercanos,
+        y la reducción por raíz cuadrada, útil cuando los factores están más separados.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Algoritmos implementados</h2>
+      <ul>
+        <li><strong>Fermat:</strong> representa n como diferencia de cuadrados.</li>
+        <li><strong>Reducción por raíz cuadrada:</strong> busca divisores hasta √n.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Estructura del proyecto</h2>
+      <pre><code>factorizacion-python/
+├── fermat.py
+├── sqrt_reduction.py
+├── experimentos.py
+├── README.md
+└── docs/
+    ├── index.html
+    └── styles.css</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Ejemplo de ejecución</h2>
+      <pre><code>python experimentos.py</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Ejemplo de salida</h2>
+      <pre><code>Número n = 5959
+
+Fermat:
+  factores    = (59, 101)
+  iteraciones = 3
+
+Reducción sqrt:
+  factores    = (59, 101)
+  iteraciones = 29</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Autor</h2>
+      <p>Jeancarlos Casquín</p>
+    </section>
+  </div>
+</body>
+</html>
