@@ -4,6 +4,9 @@ import os
 
 
 def fermat_factor(n):
+    if n <= 0:
+        raise ValueError("n debe ser positivo")
+
     if n % 2 == 0:
         return 2, n // 2, 1
 
@@ -25,6 +28,9 @@ def fermat_factor(n):
 
 
 def sqrt_reduction_factor(n):
+    if n <= 0:
+        raise ValueError("n debe ser positivo")
+
     if n % 2 == 0:
         return 2, n // 2, 1
 
@@ -50,22 +56,42 @@ def ejecutar_experimentos():
 
     resultados = []
 
+    print("\n==============================")
+    print(" RESULTADOS DE EXPERIMENTOS")
+    print("==============================")
+
     for n in casos:
-        # Fermat
         inicio = time.perf_counter()
         p1, q1, it1 = fermat_factor(n)
         t1 = time.perf_counter() - inicio
 
-        # sqrt
         inicio = time.perf_counter()
         p2, q2, it2 = sqrt_reduction_factor(n)
         t2 = time.perf_counter() - inicio
 
-        resultados.append({
+        resultado = {
             "n": n,
-            "fermat": f"({p1},{q1}) - it:{it1} - t:{t1:.6f}",
-            "sqrt": f"({p2},{q2}) - it:{it2} - t:{t2:.6f}"
-        })
+            "fermat_factores": f"({p1}, {q1})",
+            "fermat_iteraciones": it1,
+            "fermat_tiempo": f"{t1:.8f}",
+            "sqrt_factores": f"({p2}, {q2})",
+            "sqrt_iteraciones": it2,
+            "sqrt_tiempo": f"{t2:.8f}"
+        }
+
+        resultados.append(resultado)
+
+        # Mostrar también en terminal
+        print(f"\nNúmero n = {n}")
+        print("Fermat:")
+        print(f"  factores    = {resultado['fermat_factores']}")
+        print(f"  iteraciones = {resultado['fermat_iteraciones']}")
+        print(f"  tiempo      = {resultado['fermat_tiempo']} s")
+
+        print("Reducción sqrt:")
+        print(f"  factores    = {resultado['sqrt_factores']}")
+        print(f"  iteraciones = {resultado['sqrt_iteraciones']}")
+        print(f"  tiempo      = {resultado['sqrt_tiempo']} s")
 
     return resultados
 
@@ -77,34 +103,43 @@ def generar_html(resultados):
         filas += f"""
         <tr>
             <td>{r['n']}</td>
-            <td>{r['fermat']}</td>
-            <td>{r['sqrt']}</td>
+            <td>{r['fermat_factores']}</td>
+            <td>{r['fermat_iteraciones']}</td>
+            <td>{r['fermat_tiempo']} s</td>
+            <td>{r['sqrt_factores']}</td>
+            <td>{r['sqrt_iteraciones']}</td>
+            <td>{r['sqrt_tiempo']} s</td>
         </tr>
         """
 
     html = f"""
-    <section class="card">
-        <h2>🧪 Resultados Automáticos</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Fermat</th>
-                    <th>Raíz cuadrada</th>
-                </tr>
-            </thead>
-            <tbody>
-                {filas}
-            </tbody>
-        </table>
-    </section>
-    """
+<section class="card">
+    <h2>🧪 Resultados Automáticos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Fermat - Factores</th>
+                <th>Fermat - Iteraciones</th>
+                <th>Fermat - Tiempo</th>
+                <th>Raíz Cuadrada - Factores</th>
+                <th>Raíz Cuadrada - Iteraciones</th>
+                <th>Raíz Cuadrada - Tiempo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {filas}
+        </tbody>
+    </table>
+</section>
+"""
 
-    # Guardar en docs
     os.makedirs("docs", exist_ok=True)
 
-    with open("docs/resultados.html", "w", encoding="utf-8") as f:
-        f.write(html)
+    with open("docs/resultados.html", "w", encoding="utf-8") as archivo:
+        archivo.write(html)
+
+    print("\nArchivo generado correctamente: docs/resultados.html")
 
 
 if __name__ == "__main__":
